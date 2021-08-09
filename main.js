@@ -208,7 +208,7 @@ RecipeItemComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShoppingEditComponent", function() { return ShoppingEditComponent; });
-/* harmony import */ var src_app_shared_ingredient_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/shared/ingredient.model */ "9rNa");
+/* harmony import */ var _shared_ingredient_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../shared/ingredient.model */ "9rNa");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _shopping_list_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shopping-list.service */ "ozzT");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
@@ -227,7 +227,7 @@ class ShoppingEditComponent {
     onAddItem() {
         const ingName = this.nameInputRef.nativeElement.value;
         const ingAmount = this.amountInputRef.nativeElement.value;
-        const newIngredient = new src_app_shared_ingredient_model__WEBPACK_IMPORTED_MODULE_0__["Ingredient"](ingName, ingAmount);
+        const newIngredient = new _shared_ingredient_model__WEBPACK_IMPORTED_MODULE_0__["Ingredient"](ingName, ingAmount);
         this.slService.addIngredient(newIngredient);
     }
 }
