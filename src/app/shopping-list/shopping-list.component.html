@@ -6,7 +6,7 @@
          <a class="list-group-item"
           style="cursor: pointer"
           *ngFor="let ingredient of 
-          ingredients; let i = index"
+          (ingredients | async).ingredients; let i = index"
           (click)="onEditItem(i)"
           >
         {{ingredient.name}} ({{ingredient.amount}})
@@ -14,3 +14,6 @@
        </ul>
     </div>
     </div>
+
+    <!--  For service just use: "let ingredient of 
+          ingredients; -->
