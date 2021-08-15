@@ -1,5 +1,82 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
 
+/***/ "/WaZ":
+/*!********************************************!*\
+  !*** ./src/app/auth/store/auth.actions.ts ***!
+  \********************************************/
+/*! exports provided: AUTHENTICATE_SUCCESS, LOGOUT, LOGIN_START, AUTHENTICATE_FAIL, SIGNUP_START, SIGNUP, CLEAR_ERROR, AUTO_LOGIN, AuthenticateSuccess, logout, LoginStart, AuthenticateFail, SignupStart, ClearError, Autologin */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTHENTICATE_SUCCESS", function() { return AUTHENTICATE_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT", function() { return LOGOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN_START", function() { return LOGIN_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTHENTICATE_FAIL", function() { return AUTHENTICATE_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SIGNUP_START", function() { return SIGNUP_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SIGNUP", function() { return SIGNUP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_ERROR", function() { return CLEAR_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTO_LOGIN", function() { return AUTO_LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticateSuccess", function() { return AuthenticateSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginStart", function() { return LoginStart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticateFail", function() { return AuthenticateFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupStart", function() { return SignupStart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClearError", function() { return ClearError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Autologin", function() { return Autologin; });
+const AUTHENTICATE_SUCCESS = '[Auth] Authenticate Success';
+const LOGOUT = '[Auth] Logout';
+const LOGIN_START = '[Auth] Login Start';
+const AUTHENTICATE_FAIL = '[Auth] Authenticate Fail';
+const SIGNUP_START = '[Auth] Signup Start';
+const SIGNUP = '[Auth] Signup';
+const CLEAR_ERROR = '[Auth] Clear error';
+const AUTO_LOGIN = '[Auth] Auto Login';
+class AuthenticateSuccess {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = AUTHENTICATE_SUCCESS;
+    }
+}
+class logout {
+    constructor() {
+        this.type = LOGOUT;
+    }
+}
+class LoginStart {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = LOGIN_START;
+    }
+    ;
+}
+class AuthenticateFail {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = AUTHENTICATE_FAIL;
+    }
+}
+class SignupStart {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = SIGNUP_START;
+    }
+    ;
+}
+class ClearError {
+    constructor() {
+        this.type = CLEAR_ERROR;
+    }
+}
+class Autologin {
+    constructor() {
+        this.type = AUTO_LOGIN;
+    }
+}
+
+
+/***/ }),
+
 /***/ "/iaH":
 /*!*************************************************************!*\
   !*** ./src/app/shared/placeholder/placeholder.directive.ts ***!
@@ -125,20 +202,25 @@ const environment = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataStorageService", function() { return DataStorageService; });
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
-/* harmony import */ var _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../recipes/recipe.service */ "ceC1");
-/* harmony import */ var _Auth_auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Auth/auth.service */ "npAJ");
+/* harmony import */ var _recipes_store_recipe_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../recipes/store/recipe.actions */ "g0Sx");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _recipes_recipe_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../recipes/recipe.service */ "ceC1");
+/* harmony import */ var _Auth_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Auth/auth.service */ "npAJ");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngrx/store */ "l7P3");
+
+
 
 
 
 
 
 class DataStorageService {
-    constructor(http, recipesService, authService) {
+    constructor(http, recipesService, authService, store) {
         this.http = http;
         this.recipesService = recipesService;
         this.authService = authService;
+        this.store = store;
     }
     storeRecipe() {
         const recipe = this.recipesService.getRecipes();
@@ -153,12 +235,13 @@ class DataStorageService {
                 return Object.assign(Object.assign({}, recipe), { ingredients: recipe.ingredients ? recipe.ingredients : [] });
             });
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["tap"])(recipes => {
-            this.recipesService.setRecipes(recipes);
+            this.store.dispatch(new _recipes_store_recipe_actions__WEBPACK_IMPORTED_MODULE_1__["SetRecipes"](recipes));
+            // this.recipesService.setRecipes(recipes);
         }));
     }
 }
-DataStorageService.ɵfac = function DataStorageService_Factory(t) { return new (t || DataStorageService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_recipes_recipe_service__WEBPACK_IMPORTED_MODULE_3__["RecipeService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_Auth_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"])); };
-DataStorageService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: DataStorageService, factory: DataStorageService.ɵfac });
+DataStorageService.ɵfac = function DataStorageService_Factory(t) { return new (t || DataStorageService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_recipes_recipe_service__WEBPACK_IMPORTED_MODULE_4__["RecipeService"]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_Auth_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_6__["Store"])); };
+DataStorageService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({ token: DataStorageService, factory: DataStorageService.ɵfac });
 
 
 /***/ }),
@@ -204,6 +287,177 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjec
 
 /***/ }),
 
+/***/ "S3+y":
+/*!**************************************!*\
+  !*** ./src/app/store/app.reducer.ts ***!
+  \**************************************/
+/*! exports provided: appReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appReducer", function() { return appReducer; });
+/* harmony import */ var _shopping_list_store_shopping_list_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../shopping-list/store/shopping-list.reducer */ "ZSCJ");
+/* harmony import */ var _auth_store_auth_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../auth/store/auth.reducer */ "qkvP");
+/* harmony import */ var _recipes_store_recipe_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../recipes/store/recipe.reducer */ "d5Cv");
+
+
+
+const appReducer = {
+    shoppingList: _shopping_list_store_shopping_list_reducer__WEBPACK_IMPORTED_MODULE_0__["shoppingListReducer"],
+    auth: _auth_store_auth_reducer__WEBPACK_IMPORTED_MODULE_1__["authReducer"],
+    recipes: _recipes_store_recipe_reducer__WEBPACK_IMPORTED_MODULE_2__["RecipeReducer"]
+};
+
+
+/***/ }),
+
+/***/ "SDDU":
+/*!********************************************!*\
+  !*** ./src/app/Auth/store/auth.effects.ts ***!
+  \********************************************/
+/*! exports provided: AuthEffects */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthEffects", function() { return AuthEffects; });
+/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ngrx/effects */ "9jGm");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _auth_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth.actions */ "UE0Z");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../environments/environment */ "AytR");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "qCKp");
+/* harmony import */ var _user_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../user.model */ "dzTO");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../auth.service */ "npAJ");
+
+
+
+
+
+
+
+
+
+
+
+const handleAthentication = (expiresIn, email, userId, token) => {
+    const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
+    const user = new _user_model__WEBPACK_IMPORTED_MODULE_5__["User"](email, userId, token, expirationDate);
+    localStorage.setItem("userData", JSON.stringify(user));
+    return new _auth_actions__WEBPACK_IMPORTED_MODULE_2__["AuthenticateSuccess"]({ email: email,
+        userId: userId,
+        token: token,
+        expirationDate: expirationDate,
+        redirect: true });
+};
+const handleError = (errorRes) => {
+    let errorMessage = "An error occurred!";
+    if (!errorRes.error || !errorRes.error.error) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])(new _auth_actions__WEBPACK_IMPORTED_MODULE_2__["AuthenticateFail"](errorMessage));
+    }
+    switch (errorRes.error.error.message) {
+        case 'EMAIL_EXISTS':
+            errorMessage = 'This email exists already';
+        case 'INVALID_PASSWORD':
+            errorMessage = 'Invalid password';
+        case 'EMAIL_NOT_FOUND':
+            errorMessage = 'This email does not exist';
+    }
+    return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])(new _auth_actions__WEBPACK_IMPORTED_MODULE_2__["AuthenticateFail"](errorMessage));
+};
+class AuthEffects {
+    constructor(actions$, http, router, authService) {
+        this.actions$ = actions$;
+        this.http = http;
+        this.router = router;
+        this.authService = authService;
+        this.authSignup = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["createEffect"])(() => {
+            return this.actions$
+                .pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_auth_actions__WEBPACK_IMPORTED_MODULE_2__["SIGNUP_START"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])((signupAction) => {
+                return this.http
+                    .post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].firebaseAPIKey, {
+                    email: signupAction.payload.email,
+                    password: signupAction.payload.password,
+                    returnSecureToken: true
+                }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["tap"])(resData => {
+                    this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+                }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(resData => {
+                    return handleAthentication(+resData.expiresIn, resData.email, resData.localId, resData.idToken);
+                }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(errorRes => {
+                    return handleError(errorRes);
+                }));
+            }));
+        });
+        this.authLogin = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["createEffect"])(() => {
+            return this.actions$
+                .pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_auth_actions__WEBPACK_IMPORTED_MODULE_2__["LOGIN_START"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])((authData) => {
+                return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].firebaseAPIKey, {
+                    email: authData.payload.email,
+                    password: authData.payload.password,
+                    returnSecureToken: true
+                })
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["tap"])(resData => {
+                    this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+                }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(resData => {
+                    return handleAthentication(+resData.expiresIn, resData.email, resData.localId, resData.idToken);
+                }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(errorRes => {
+                    return handleError(errorRes);
+                }));
+            }));
+        });
+        this.authRedirect = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["createEffect"])(() => {
+            return this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_auth_actions__WEBPACK_IMPORTED_MODULE_2__["AUTHENTICATE_SUCCESS"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["tap"])((authSuccessAction) => {
+                if (authSuccessAction.payload.redirect) {
+                    this.router.navigate(['/']);
+                }
+            }));
+        }, { dispatch: false });
+        this.authLogout = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["createEffect"])(() => {
+            return this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_auth_actions__WEBPACK_IMPORTED_MODULE_2__["LOGOUT"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["tap"])(() => {
+                this.authService.clearLogoutTimer();
+                localStorage.removeItem("userData");
+                this.router.navigate(['/auth']);
+            }));
+        }, { dispatch: false });
+        this.autoLogin = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["createEffect"])(() => {
+            return this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_auth_actions__WEBPACK_IMPORTED_MODULE_2__["AUTO_LOGIN"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(() => {
+                var userData = JSON.parse(localStorage.getItem("userData"));
+                if (!userData) {
+                    return { type: 'DUMMY' };
+                }
+                else {
+                    const loadedUser = new _user_model__WEBPACK_IMPORTED_MODULE_5__["User"](userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+                    if (loadedUser.token) {
+                        const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+                        this.authService.setLogoutTimer(expirationDuration);
+                        return new _auth_actions__WEBPACK_IMPORTED_MODULE_2__["AuthenticateSuccess"]({
+                            email: loadedUser.email,
+                            userId: loadedUser.id,
+                            token: loadedUser.token,
+                            expirationDate: new Date(userData._tokenExpirationDate),
+                            redirect: false
+                        });
+                        // this.user.next(loadedUser);
+                        // const expirationDuration = new Date(
+                        //     userData._tokenExpirationDate
+                        // ).getTime()  - new Date().getTime();
+                        // this.autoLogout(expirationDuration);
+                    }
+                    return { type: 'DUMMY' };
+                }
+            }));
+        });
+    }
+}
+AuthEffects.ɵfac = function AuthEffects_Factory(t) { return new (t || AuthEffects)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["Actions"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵinject"](_auth_service__WEBPACK_IMPORTED_MODULE_9__["AuthService"])); };
+AuthEffects.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineInjectable"]({ token: AuthEffects, factory: AuthEffects.ɵfac });
+
+
+/***/ }),
+
 /***/ "Sy1n":
 /*!**********************************!*\
   !*** ./src/app/app.component.ts ***!
@@ -214,33 +468,169 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjec
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _Auth_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Auth/auth.service */ "npAJ");
-/* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header/header.component */ "fECr");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _auth_store_auth_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth/store/auth.actions */ "/WaZ");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _Auth_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Auth/auth.service */ "npAJ");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "l7P3");
+/* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./header/header.component */ "fECr");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
+
+
 
 
 
 
 class AppComponent {
-    constructor(authService) {
+    constructor(authService, store) {
         this.authService = authService;
+        this.store = store;
     }
     ngOnInit() {
-        this.authService.autoLogin();
+        this.store.dispatch(new _auth_store_auth_actions__WEBPACK_IMPORTED_MODULE_0__["Autologin"]());
+        //this.authService.autoLogin();
     }
 }
-AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_Auth_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"])); };
-AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 5, vars: 0, consts: [[1, "container"], [1, "row"], [1, "col-md-12"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "app-header");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "router-outlet");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } }, directives: [_header_header_component__WEBPACK_IMPORTED_MODULE_2__["HeaderComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterOutlet"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAuY29tcG9uZW50LmNzcyJ9 */"] });
+AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_Auth_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"])); };
+AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 5, vars: 0, consts: [[1, "container"], [1, "row"], [1, "col-md-12"]], template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "app-header");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](4, "router-outlet");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    } }, directives: [_header_header_component__WEBPACK_IMPORTED_MODULE_4__["HeaderComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterOutlet"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAuY29tcG9uZW50LmNzcyJ9 */"] });
+
+
+/***/ }),
+
+/***/ "U7/q":
+/*!*************************************************!*\
+  !*** ./src/app/recipes/store/recipe.effects.ts ***!
+  \*************************************************/
+/*! exports provided: RecipeEffects */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeEffects", function() { return RecipeEffects; });
+/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ngrx/effects */ "9jGm");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _recipe_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./recipe.actions */ "g0Sx");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngrx/store */ "l7P3");
+
+
+
+
+
+
+
+class RecipeEffects {
+    constructor(actions$, http, store) {
+        this.actions$ = actions$;
+        this.http = http;
+        this.store = store;
+        this.fetchRecipes = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["createEffect"])(() => {
+            return this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_recipe_actions__WEBPACK_IMPORTED_MODULE_2__["FETCH_RECIPES"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])(fetchActionData => {
+                return this.http.get("https://ng-course-recipe-book-689f7-default-rtdb.firebaseio.com/recipes.json")
+                    .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(recipes => {
+                    return recipes.map(recipe => {
+                        return Object.assign(Object.assign({}, recipe), { ingredients: recipe.ingredients ? recipe.ingredients : [] });
+                    });
+                }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(recipes => {
+                    return new _recipe_actions__WEBPACK_IMPORTED_MODULE_2__["SetRecipes"](recipes);
+                }));
+            }));
+        });
+        this.storeRecipes = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["createEffect"])(() => {
+            return this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_recipe_actions__WEBPACK_IMPORTED_MODULE_2__["STORE_RECIPE"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["withLatestFrom"])(this.store.select('recipes')), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])(([actionData, recipesState]) => {
+                return this.http.put("https://ng-course-recipe-book-689f7-default-rtdb.firebaseio.com/recipes.json", recipesState.recipes);
+            }));
+        }, { dispatch: false });
+    }
+}
+RecipeEffects.ɵfac = function RecipeEffects_Factory(t) { return new (t || RecipeEffects)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["Actions"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"])); };
+RecipeEffects.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({ token: RecipeEffects, factory: RecipeEffects.ɵfac });
+
+
+/***/ }),
+
+/***/ "UE0Z":
+/*!********************************************!*\
+  !*** ./src/app/Auth/store/auth.actions.ts ***!
+  \********************************************/
+/*! exports provided: AUTHENTICATE_SUCCESS, LOGOUT, LOGIN_START, AUTHENTICATE_FAIL, SIGNUP_START, SIGNUP, CLEAR_ERROR, AUTO_LOGIN, AuthenticateSuccess, logout, LoginStart, AuthenticateFail, SignupStart, ClearError, Autologin */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTHENTICATE_SUCCESS", function() { return AUTHENTICATE_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGOUT", function() { return LOGOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOGIN_START", function() { return LOGIN_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTHENTICATE_FAIL", function() { return AUTHENTICATE_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SIGNUP_START", function() { return SIGNUP_START; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SIGNUP", function() { return SIGNUP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_ERROR", function() { return CLEAR_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTO_LOGIN", function() { return AUTO_LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticateSuccess", function() { return AuthenticateSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginStart", function() { return LoginStart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticateFail", function() { return AuthenticateFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupStart", function() { return SignupStart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClearError", function() { return ClearError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Autologin", function() { return Autologin; });
+const AUTHENTICATE_SUCCESS = '[Auth] Authenticate Success';
+const LOGOUT = '[Auth] Logout';
+const LOGIN_START = '[Auth] Login Start';
+const AUTHENTICATE_FAIL = '[Auth] Authenticate Fail';
+const SIGNUP_START = '[Auth] Signup Start';
+const SIGNUP = '[Auth] Signup';
+const CLEAR_ERROR = '[Auth] Clear error';
+const AUTO_LOGIN = '[Auth] Auto Login';
+class AuthenticateSuccess {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = AUTHENTICATE_SUCCESS;
+    }
+}
+class logout {
+    constructor() {
+        this.type = LOGOUT;
+    }
+}
+class LoginStart {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = LOGIN_START;
+    }
+    ;
+}
+class AuthenticateFail {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = AUTHENTICATE_FAIL;
+    }
+}
+class SignupStart {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = SIGNUP_START;
+    }
+    ;
+}
+class ClearError {
+    constructor() {
+        this.type = CLEAR_ERROR;
+    }
+}
+class Autologin {
+    constructor() {
+        this.type = AUTO_LOGIN;
+    }
+}
 
 
 /***/ }),
@@ -307,7 +697,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shared/shared.module */ "PCNd");
 /* harmony import */ var _core_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./core.module */ "jbVo");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngrx/store */ "l7P3");
+/* harmony import */ var _store_app_reducer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./store/app.reducer */ "S3+y");
+/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ngrx/effects */ "9jGm");
+/* harmony import */ var _Auth_store_auth_effects__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Auth/store/auth.effects */ "SDDU");
+/* harmony import */ var _recipes_store_recipe_effects__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./recipes/store/recipe.effects */ "U7/q");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+
+
+
+
+
+
+
 
 
 
@@ -319,20 +722,74 @@ __webpack_require__.r(__webpack_exports__);
 class AppModule {
 }
 AppModule.ɵfac = function AppModule_Factory(t) { return new (t || AppModule)(); };
-AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_1__["AppComponent"]] });
-AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵdefineInjector"]({ imports: [[
+AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_1__["AppComponent"]] });
+AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineInjector"]({ imports: [[
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"],
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"].withServerTransition({ appId: 'serverApp' }),
             _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
             _app_routing_modules__WEBPACK_IMPORTED_MODULE_3__["AppRouteModule"],
-            _core_module__WEBPACK_IMPORTED_MODULE_6__["CoreModule"]
+            _core_module__WEBPACK_IMPORTED_MODULE_6__["CoreModule"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_7__["StoreModule"].forRoot(_store_app_reducer__WEBPACK_IMPORTED_MODULE_8__["appReducer"]),
+            _ngrx_effects__WEBPACK_IMPORTED_MODULE_9__["EffectsModule"].forRoot([_Auth_store_auth_effects__WEBPACK_IMPORTED_MODULE_10__["AuthEffects"], _recipes_store_recipe_effects__WEBPACK_IMPORTED_MODULE_11__["RecipeEffects"]])
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_1__["AppComponent"],
-        _header_header_component__WEBPACK_IMPORTED_MODULE_2__["HeaderComponent"]], imports: [_shared_shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"],
-        _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵsetNgModuleScope"](AppModule, { declarations: [_app_component__WEBPACK_IMPORTED_MODULE_1__["AppComponent"],
+        _header_header_component__WEBPACK_IMPORTED_MODULE_2__["HeaderComponent"]], imports: [_shared_shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
         _app_routing_modules__WEBPACK_IMPORTED_MODULE_3__["AppRouteModule"],
-        _core_module__WEBPACK_IMPORTED_MODULE_6__["CoreModule"]] }); })();
+        _core_module__WEBPACK_IMPORTED_MODULE_6__["CoreModule"], _ngrx_store__WEBPACK_IMPORTED_MODULE_7__["StoreRootModule"], _ngrx_effects__WEBPACK_IMPORTED_MODULE_9__["EffectsRootModule"]] }); })();
+
+
+/***/ }),
+
+/***/ "ZSCJ":
+/*!**************************************************************!*\
+  !*** ./src/app/shopping-list/store/shopping-list.reducer.ts ***!
+  \**************************************************************/
+/*! exports provided: shoppingListReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shoppingListReducer", function() { return shoppingListReducer; });
+/* harmony import */ var _shared_ingredient_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../shared/ingredient.model */ "9rNa");
+/* harmony import */ var _shopping_list_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shopping-list.action */ "eRt6");
+
+
+const initialState = {
+    ingredients: [
+        new _shared_ingredient_model__WEBPACK_IMPORTED_MODULE_0__["Ingredient"]('Apple', 5),
+        new _shared_ingredient_model__WEBPACK_IMPORTED_MODULE_0__["Ingredient"]('Tomotos', 5)
+    ],
+    editedIngredient: null,
+    editedIngredientIndex: -1
+};
+function shoppingListReducer(state = initialState, action) {
+    switch (action.type) {
+        case _shopping_list_action__WEBPACK_IMPORTED_MODULE_1__["ADD_INGREDIENT"]:
+            return Object.assign(Object.assign({}, state), { ingredients: [...state.ingredients, action.payload] });
+        case _shopping_list_action__WEBPACK_IMPORTED_MODULE_1__["ADD_INGREDIENTS"]:
+            return Object.assign(Object.assign({}, state), { ingredients: [...state.ingredients, ...action.payload] });
+        case _shopping_list_action__WEBPACK_IMPORTED_MODULE_1__["UPDATE_INGREDIENT"]:
+            //ALWAYS COPY IMMUTABLE DATA
+            //connot overrite old state data
+            const ingredient = state.ingredients[state.editedIngredientIndex];
+            //copy it then overwrite old data
+            const updatedIngredient = Object.assign(Object.assign({}, ingredient), action.payload);
+            const updatedIngredients = [...state.ingredients];
+            updatedIngredients[state.editedIngredientIndex] =
+                updatedIngredient;
+            return Object.assign(Object.assign({}, state), { ingredients: updatedIngredients, editedIngredientIndex: -1, editedIngredient: null });
+        case _shopping_list_action__WEBPACK_IMPORTED_MODULE_1__["DELETE_INGREDIENT"]:
+            return Object.assign(Object.assign({}, state), { ingredients: state.ingredients.filter((ig, igIndex) => {
+                    return igIndex != state.editedIngredientIndex;
+                }), editedIngredientIndex: -1, editedIngredient: null });
+        case _shopping_list_action__WEBPACK_IMPORTED_MODULE_1__["START_EDIT"]:
+            return Object.assign(Object.assign({}, state), { editedIngredientIndex: action.payload, editedIngredient: Object.assign({}, state.ingredients[action.payload]) });
+        case _shopping_list_action__WEBPACK_IMPORTED_MODULE_1__["STOP_EDIT"]:
+            return Object.assign(Object.assign({}, state), { editedIngredientIndex: -1, editedIngredient: null });
+        default:
+            return state;
+    }
+}
 
 
 /***/ }),
@@ -362,7 +819,7 @@ class AppRouteModule {
 }
 AppRouteModule.ɵfac = function AppRouteModule_Factory(t) { return new (t || AppRouteModule)(); };
 AppRouteModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: AppRouteModule });
-AppRouteModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(appRoutes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_0__["PreloadAllModules"] })], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
+AppRouteModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forRoot(appRoutes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_0__["PreloadAllModules"], initialNavigation: 'enabled' })], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AppRouteModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
 
 
@@ -379,14 +836,19 @@ AppRouteModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInj
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeService", function() { return RecipeService; });
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "qCKp");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _shopping_list_shopping_list_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shopping-list/shopping-list.service */ "ozzT");
+/* harmony import */ var _shopping_list_store_shopping_list_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shopping-list/store/shopping-list.action */ "eRt6");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _shopping_list_shopping_list_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shopping-list/shopping-list.service */ "ozzT");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngrx/store */ "l7P3");
+
+
 
 
 
 class RecipeService {
-    constructor(slService) {
+    constructor(slService, store) {
         this.slService = slService;
+        this.store = store;
         this.recipeChanged = new rxjs__WEBPACK_IMPORTED_MODULE_0__["Subject"]();
         this.recipes = [];
     }
@@ -414,7 +876,10 @@ class RecipeService {
         return this.recipes.slice(); //will return copy of original array
     }
     addIngredientToShoppingList(ingredients) {
-        this.slService.addIngredients(ingredients);
+        //redux
+        this.store.dispatch(new _shopping_list_store_shopping_list_action__WEBPACK_IMPORTED_MODULE_1__["AddIngredients"](ingredients));
+        //For service
+        //this.slService.addIngredients(ingredients);
     }
     getRecipe(index) {
         return this.recipes[index];
@@ -432,8 +897,74 @@ class RecipeService {
         this.recipeChanged.next(this.recipes.slice());
     }
 }
-RecipeService.ɵfac = function RecipeService_Factory(t) { return new (t || RecipeService)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_shopping_list_shopping_list_service__WEBPACK_IMPORTED_MODULE_2__["ShoppingListService"])); };
-RecipeService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: RecipeService, factory: RecipeService.ɵfac });
+RecipeService.ɵfac = function RecipeService_Factory(t) { return new (t || RecipeService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_shopping_list_shopping_list_service__WEBPACK_IMPORTED_MODULE_3__["ShoppingListService"]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"])); };
+RecipeService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({ token: RecipeService, factory: RecipeService.ɵfac });
+
+
+/***/ }),
+
+/***/ "ckZ1":
+/*!************************************!*\
+  !*** ./src/app/auth/user.model.ts ***!
+  \************************************/
+/*! exports provided: User */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
+class User {
+    constructor(email, id, _token, _tokenExpirationDate) {
+        this.email = email;
+        this.id = id;
+        this._token = _token;
+        this._tokenExpirationDate = _tokenExpirationDate;
+    }
+    get token() {
+        if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
+            return null;
+        }
+        return this._token;
+    }
+}
+
+
+/***/ }),
+
+/***/ "d5Cv":
+/*!*************************************************!*\
+  !*** ./src/app/recipes/store/recipe.reducer.ts ***!
+  \*************************************************/
+/*! exports provided: RecipeReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeReducer", function() { return RecipeReducer; });
+/* harmony import */ var _recipe_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./recipe.actions */ "g0Sx");
+
+const initialState = {
+    recipes: []
+};
+function RecipeReducer(state = initialState, action) {
+    switch (action.type) {
+        case _recipe_actions__WEBPACK_IMPORTED_MODULE_0__["SET_RECIPES"]:
+            return Object.assign(Object.assign({}, state), { recipes: [...action.payload] });
+        case _recipe_actions__WEBPACK_IMPORTED_MODULE_0__["ADD_RECIPE"]:
+            return Object.assign(Object.assign({}, state), { recipes: [...state.recipes, action.payload] });
+        case _recipe_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_RECIPE"]:
+            const updatedRecipe = Object.assign(Object.assign({}, state.recipes[action.payload.index]), action.payload.newRecipe);
+            const updatedRecipes = [...state.recipes];
+            updatedRecipes[action.payload.index] = updatedRecipe;
+            return Object.assign(Object.assign({}, state), { recipes: updatedRecipes });
+        case _recipe_actions__WEBPACK_IMPORTED_MODULE_0__["DELETE_RECIPE"]:
+            return Object.assign(Object.assign({}, state), { recipes: state.recipes.filter((recipe, index) => {
+                    return index !== action.payload;
+                }) });
+        default:
+            return state;
+    }
+}
 
 
 /***/ }),
@@ -466,6 +997,71 @@ class User {
 
 /***/ }),
 
+/***/ "eRt6":
+/*!*************************************************************!*\
+  !*** ./src/app/shopping-list/store/shopping-list.action.ts ***!
+  \*************************************************************/
+/*! exports provided: ADD_INGREDIENT, ADD_INGREDIENTS, UPDATE_INGREDIENT, DELETE_INGREDIENT, START_EDIT, STOP_EDIT, AddIngredient, AddIngredients, UpdateIngredient, DeleteIngredient, StartEdit, StopEdit */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_INGREDIENT", function() { return ADD_INGREDIENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_INGREDIENTS", function() { return ADD_INGREDIENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_INGREDIENT", function() { return UPDATE_INGREDIENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_INGREDIENT", function() { return DELETE_INGREDIENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "START_EDIT", function() { return START_EDIT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STOP_EDIT", function() { return STOP_EDIT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddIngredient", function() { return AddIngredient; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddIngredients", function() { return AddIngredients; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateIngredient", function() { return UpdateIngredient; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteIngredient", function() { return DeleteIngredient; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StartEdit", function() { return StartEdit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StopEdit", function() { return StopEdit; });
+const ADD_INGREDIENT = '[Shopping List] Add Ingredient';
+const ADD_INGREDIENTS = '[Shopping List] Add Ingredients';
+const UPDATE_INGREDIENT = '[Shopping List] Update Ingredient';
+const DELETE_INGREDIENT = '[Shopping List] Delete Ingredient';
+const START_EDIT = '[Shopping List] Start Edit';
+const STOP_EDIT = '[Shopping List] Stop Edit';
+class AddIngredient {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ADD_INGREDIENT;
+    }
+}
+class AddIngredients {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ADD_INGREDIENTS;
+    }
+}
+class UpdateIngredient {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = UPDATE_INGREDIENT;
+    }
+}
+class DeleteIngredient {
+    constructor() {
+        this.type = DELETE_INGREDIENT;
+    }
+}
+class StartEdit {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = START_EDIT;
+    }
+}
+class StopEdit {
+    constructor() {
+        this.type = STOP_EDIT;
+    }
+}
+
+
+/***/ }),
+
 /***/ "fECr":
 /*!********************************************!*\
   !*** ./src/app/header/header.component.ts ***!
@@ -476,12 +1072,20 @@ class User {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HeaderComponent", function() { return HeaderComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _shared_data_storage_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/data-storage.service */ "GXvH");
-/* harmony import */ var _Auth_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Auth/auth.service */ "npAJ");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "ofXK");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _shared_dropdown_directive__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/dropdown-directive */ "1nPk");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _Auth_store_auth_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Auth/store/auth.actions */ "UE0Z");
+/* harmony import */ var _recipes_store_recipe_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../recipes/store/recipe.actions */ "g0Sx");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _shared_data_storage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/data-storage.service */ "GXvH");
+/* harmony import */ var _Auth_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Auth/auth.service */ "npAJ");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngrx/store */ "l7P3");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "ofXK");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _shared_dropdown_directive__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../shared/dropdown-directive */ "1nPk");
+
+
+
+
 
 
 
@@ -489,59 +1093,62 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function HeaderComponent_li_7_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "a", 12);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Recipes");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "li", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "a", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](2, "Recipes");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
 } }
 function HeaderComponent_li_8_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "a", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Authenticate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "li", 7);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "a", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](2, "Authenticate");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
 } }
 function HeaderComponent_li_13_Template(rf, ctx) { if (rf & 1) {
-    const _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "a", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HeaderComponent_li_13_Template_a_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r5); const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r4.onlogout(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Logout");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    const _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "li");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "a", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function HeaderComponent_li_13_Template_a_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r5); const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](); return ctx_r4.onlogout(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](2, "Logout");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
 } }
 function HeaderComponent_li_14_Template(rf, ctx) { if (rf & 1) {
-    const _r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "a", 16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Manage ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "span", 17);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "ul", 18);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "li");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "a", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HeaderComponent_li_14_Template_a_click_6_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r7); const ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r6.onSaveData(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7, "Save Data");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "li");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "a", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function HeaderComponent_li_14_Template_a_click_9_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r7); const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r8.onFetchData(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10, "Fetch Data");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    const _r7 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "li", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "a", 16);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](2, " Manage ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](3, "span", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](4, "ul", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](5, "li");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](6, "a", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function HeaderComponent_li_14_Template_a_click_6_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r7); const ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](); return ctx_r6.onSaveData(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](7, "Save Data");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](8, "li");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](9, "a", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵlistener"]("click", function HeaderComponent_li_14_Template_a_click_9_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵrestoreView"](_r7); const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵnextContext"](); return ctx_r8.onFetchData(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](10, "Fetch Data");
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
 } }
 class HeaderComponent {
-    constructor(dataStorageService, authService) {
+    constructor(dataStorageService, authService, store) {
         this.dataStorageService = dataStorageService;
         this.authService = authService;
+        this.store = store;
         this.isAuthenticted = false;
     }
     ngOnInit() {
-        this.userSub = this.authService.user.subscribe(user => {
+        this.userSub = this.store.select('auth')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["map"])(authState => authState.user))
+            .subscribe(user => {
             this.isAuthenticted = !!user;
         });
     }
@@ -549,51 +1156,119 @@ class HeaderComponent {
         this.userSub.unsubscribe();
     }
     onSaveData() {
-        this.dataStorageService.storeRecipe();
+        this.store.dispatch(new _recipes_store_recipe_actions__WEBPACK_IMPORTED_MODULE_2__["StoreRecipe"]());
+        // this.dataStorageService.storeRecipe();
     }
     onFetchData() {
-        this.dataStorageService.fetchRecipes().subscribe();
+        this.store.dispatch(new _recipes_store_recipe_actions__WEBPACK_IMPORTED_MODULE_2__["FetchRecipes"]());
+        // this.dataStorageService.fetchRecipes().subscribe();
     }
     onlogout() {
-        this.authService.logout();
+        this.store.dispatch(new _Auth_store_auth_actions__WEBPACK_IMPORTED_MODULE_1__["logout"]());
+        // this.authService.logout();
     }
 }
-HeaderComponent.ɵfac = function HeaderComponent_Factory(t) { return new (t || HeaderComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_shared_data_storage_service__WEBPACK_IMPORTED_MODULE_1__["DataStorageService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_Auth_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"])); };
-HeaderComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HeaderComponent, selectors: [["app-header"]], decls: 15, vars: 4, consts: [[1, "navbar", "navbar-default"], [1, "container-fluid"], [1, "navbar-header"], ["href", "#", 1, "navbar-brand"], [1, "collapse", "navbar-collapse"], [1, "nav", "navbar-nav"], ["routerLinkActive", "active", 4, "ngIf"], ["routerLinkActive", "active"], ["routerLink", "/shopping-list"], [1, "nav", "navbar-nav", "navbar-right"], [4, "ngIf"], ["class", "dropdown", "appDropdown", "", 4, "ngIf"], ["routerLink", "/recipes"], ["routerLink", "/auth"], [2, "cursor", "pointer", 3, "click"], ["appDropdown", "", 1, "dropdown"], ["role", "button", 1, "dropdown-toggle", 2, "cursor", "pointer"], [1, "caret"], [1, "dropdown-menu"]], template: function HeaderComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "nav", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "a", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4, "Recipe Book");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "ul", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, HeaderComponent_li_7_Template, 3, 0, "li", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, HeaderComponent_li_8_Template, 3, 0, "li", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "li", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "a", 8);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11, "Shopping List");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "ul", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, HeaderComponent_li_13_Template, 3, 0, "li", 10);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, HeaderComponent_li_14_Template, 11, 0, "li", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+HeaderComponent.ɵfac = function HeaderComponent_Factory(t) { return new (t || HeaderComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_shared_data_storage_service__WEBPACK_IMPORTED_MODULE_4__["DataStorageService"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_Auth_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_6__["Store"])); };
+HeaderComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: HeaderComponent, selectors: [["app-header"]], decls: 15, vars: 4, consts: [[1, "navbar", "navbar-default"], [1, "container-fluid"], [1, "navbar-header"], ["href", "#", 1, "navbar-brand"], [1, "collapse", "navbar-collapse"], [1, "nav", "navbar-nav"], ["routerLinkActive", "active", 4, "ngIf"], ["routerLinkActive", "active"], ["routerLink", "/shopping-list"], [1, "nav", "navbar-nav", "navbar-right"], [4, "ngIf"], ["class", "dropdown", "appDropdown", "", 4, "ngIf"], ["routerLink", "/recipes"], ["routerLink", "/auth"], [2, "cursor", "pointer", 3, "click"], ["appDropdown", "", 1, "dropdown"], ["role", "button", 1, "dropdown-toggle", 2, "cursor", "pointer"], [1, "caret"], [1, "dropdown-menu"]], template: function HeaderComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "nav", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](2, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](3, "a", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](4, "Recipe Book");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](5, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](6, "ul", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](7, HeaderComponent_li_7_Template, 3, 0, "li", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](8, HeaderComponent_li_8_Template, 3, 0, "li", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](9, "li", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](10, "a", 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](11, "Shopping List");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](12, "ul", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](13, HeaderComponent_li_13_Template, 3, 0, "li", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtemplate"](14, HeaderComponent_li_14_Template, 11, 0, "li", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.isAuthenticted);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx.isAuthenticted);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.isAuthenticted);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.isAuthenticted);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterLinkWithHref"], _shared_dropdown_directive__WEBPACK_IMPORTED_MODULE_5__["DropdownDirective"]], encapsulation: 2 });
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", ctx.isAuthenticted);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", !ctx.isAuthenticted);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", ctx.isAuthenticted);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵproperty"]("ngIf", ctx.isAuthenticted);
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["RouterLinkActive"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["RouterLinkWithHref"], _shared_dropdown_directive__WEBPACK_IMPORTED_MODULE_9__["DropdownDirective"]], encapsulation: 2 });
+
+
+/***/ }),
+
+/***/ "g0Sx":
+/*!*************************************************!*\
+  !*** ./src/app/recipes/store/recipe.actions.ts ***!
+  \*************************************************/
+/*! exports provided: SET_RECIPES, FETCH_RECIPES, ADD_RECIPE, UPDATE_RECIPE, DELETE_RECIPE, STORE_RECIPE, SetRecipes, FetchRecipes, AddRecipe, UpdateRecipe, DeleteRecipe, StoreRecipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_RECIPES", function() { return SET_RECIPES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FETCH_RECIPES", function() { return FETCH_RECIPES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_RECIPE", function() { return ADD_RECIPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_RECIPE", function() { return UPDATE_RECIPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_RECIPE", function() { return DELETE_RECIPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STORE_RECIPE", function() { return STORE_RECIPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetRecipes", function() { return SetRecipes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FetchRecipes", function() { return FetchRecipes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddRecipe", function() { return AddRecipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateRecipe", function() { return UpdateRecipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeleteRecipe", function() { return DeleteRecipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StoreRecipe", function() { return StoreRecipe; });
+const SET_RECIPES = '[Recipes] Set Recipe';
+const FETCH_RECIPES = '[Recipes] Fetch Recipes';
+const ADD_RECIPE = '[Recipe] Add Recipe';
+const UPDATE_RECIPE = '[Recipe] Update Recipe';
+const DELETE_RECIPE = '[Recipe] Delete Recipe';
+const STORE_RECIPE = '[Recipe] Store Recipe';
+class SetRecipes {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = SET_RECIPES;
+    }
+}
+class FetchRecipes {
+    constructor() {
+        this.type = FETCH_RECIPES;
+    }
+}
+class AddRecipe {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = ADD_RECIPE;
+    }
+}
+class UpdateRecipe {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = UPDATE_RECIPE;
+    }
+}
+class DeleteRecipe {
+    constructor(payload) {
+        this.payload = payload;
+        this.type = DELETE_RECIPE;
+    }
+}
+class StoreRecipe {
+    constructor() {
+        this.type = STORE_RECIPE;
+    }
+}
 
 
 /***/ }),
@@ -650,9 +1325,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "qCKp");
 /* harmony import */ var _user_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user.model */ "dzTO");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../environments/environment */ "AytR");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _store_auth_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/auth.actions */ "UE0Z");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ngrx/store */ "l7P3");
+
+
 
 
 
@@ -661,17 +1340,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AuthService {
-    constructor(http, router) {
+    constructor(http, router, store) {
         this.http = http;
         this.router = router;
-        this.user = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](null);
+        this.store = store;
     }
     signup(email, password) {
-        return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].firebaseAPIKey, {
+        return this.http
+            .post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].firebaseAPIKey, {
             email: email,
             password: password,
             returnSecureToken: true
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(this.handleError), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["tap"])(resData => {
+        })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["catchError"])(this.handleError), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["tap"])(resData => {
             this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
         }));
     }
@@ -700,18 +1381,30 @@ class AuthService {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(errorMessage);
     }
     logout() {
-        this.user.next(null);
+        //this.user.next(null);
+        this.store.dispatch(new _store_auth_actions__WEBPACK_IMPORTED_MODULE_4__["logout"]());
         localStorage.removeItem("userData");
         if (this.tokenExpirationTimer) {
             clearTimeout(this.tokenExpirationTimer);
         }
         this.tokenExpirationTimer = null;
-        this.router.navigate(["/auth"]);
+        //s  this.router.navigate(["/auth"]);
     }
     autoLogout(expirationDuration) {
         this.tokenExpirationTimer = setTimeout(() => {
             this.logout();
         }, expirationDuration);
+    }
+    setLogoutTimer(expirationDuration) {
+        this.tokenExpirationTimer = setTimeout(() => {
+            this.store.dispatch(new _store_auth_actions__WEBPACK_IMPORTED_MODULE_4__["logout"]());
+        }, expirationDuration);
+    }
+    clearLogoutTimer() {
+        if (this.tokenExpirationTimer) {
+            clearTimeout(this.tokenExpirationTimer);
+            this.tokenExpirationTimer = null;
+        }
     }
     autoLogin() {
         var userData = JSON.parse(localStorage.getItem("userData"));
@@ -721,7 +1414,14 @@ class AuthService {
         else {
             const loadedUser = new _user_model__WEBPACK_IMPORTED_MODULE_2__["User"](userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
             if (loadedUser.token) {
-                this.user.next(loadedUser);
+                this.store.dispatch(new _store_auth_actions__WEBPACK_IMPORTED_MODULE_4__["AuthenticateSuccess"]({
+                    email: loadedUser.email,
+                    userId: loadedUser.id,
+                    token: loadedUser.token,
+                    expirationDate: new Date(userData._tokenExpirationDate),
+                    redirect: false
+                }));
+                // this.user.next(loadedUser);
                 const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
                 this.autoLogout(expirationDuration);
             }
@@ -730,13 +1430,20 @@ class AuthService {
     handleAuthentication(email, userId, token, expiresIn) {
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
         const user = new _user_model__WEBPACK_IMPORTED_MODULE_2__["User"](email, userId, token, expirationDate);
-        this.user.next(user);
+        //this.user.next(user);
+        this.store.dispatch(new _store_auth_actions__WEBPACK_IMPORTED_MODULE_4__["AuthenticateSuccess"]({
+            email: email,
+            userId: userId,
+            token: token,
+            expirationDate: expirationDate,
+            redirect: true
+        }));
         this.autoLogout(expiresIn * 1000);
         localStorage.setItem('userData', JSON.stringify(user));
     }
 }
-AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"])); };
-AuthService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({ token: AuthService, factory: AuthService.ɵfac, providedIn: 'root' });
+AuthService.ɵfac = function AuthService_Factory(t) { return new (t || AuthService)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵinject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_8__["Store"])); };
+AuthService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjectable"]({ token: AuthService, factory: AuthService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -791,6 +1498,47 @@ class ShoppingListService {
 
 /***/ }),
 
+/***/ "qkvP":
+/*!********************************************!*\
+  !*** ./src/app/auth/store/auth.reducer.ts ***!
+  \********************************************/
+/*! exports provided: authReducer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authReducer", function() { return authReducer; });
+/* harmony import */ var _user_model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../user.model */ "ckZ1");
+/* harmony import */ var _auth_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth.actions */ "/WaZ");
+
+
+const initialState = {
+    user: null,
+    authError: null,
+    loading: false
+};
+function authReducer(state = initialState, action) {
+    switch (action.type) {
+        case _auth_actions__WEBPACK_IMPORTED_MODULE_1__["AUTHENTICATE_SUCCESS"]:
+            const user = new _user_model__WEBPACK_IMPORTED_MODULE_0__["User"](action.payload.email, action.payload.userId, action.payload.token, action.payload.expirationDate);
+            return Object.assign(Object.assign({}, state), { authError: null, user: user });
+        case _auth_actions__WEBPACK_IMPORTED_MODULE_1__["LOGOUT"]:
+            return Object.assign(Object.assign({}, state), { authError: null, user: null, loading: false });
+        case _auth_actions__WEBPACK_IMPORTED_MODULE_1__["LOGIN_START"]:
+        case _auth_actions__WEBPACK_IMPORTED_MODULE_1__["SIGNUP_START"]:
+            return Object.assign(Object.assign({}, state), { authError: null, loading: true });
+        case _auth_actions__WEBPACK_IMPORTED_MODULE_1__["AUTHENTICATE_FAIL"]:
+            return Object.assign(Object.assign({}, state), { user: null, authError: action.payload, loading: false });
+        case _auth_actions__WEBPACK_IMPORTED_MODULE_1__["CLEAR_ERROR"]:
+            return Object.assign(Object.assign({}, state), { authError: null });
+        default:
+            return state;
+    }
+}
+
+
+/***/ }),
+
 /***/ "ysaz":
 /*!**************************************************!*\
   !*** ./src/app/Auth/auth-interceptor.service.ts ***!
@@ -805,16 +1553,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth.service */ "npAJ");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngrx/store */ "l7P3");
+
 
 
 
 
 class AuthInterceptorService {
-    constructor(authService) {
+    constructor(authService, store) {
         this.authService = authService;
+        this.store = store;
     }
     intercept(req, next) {
-        return this.authService.user.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["exhaustMap"])(user => {
+        return this.store.select('auth').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(authState => {
+            return authState.user;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["exhaustMap"])(user => {
             if (!user) {
                 return next.handle(req);
             }
@@ -823,7 +1576,7 @@ class AuthInterceptorService {
         }));
     }
 }
-AuthInterceptorService.ɵfac = function AuthInterceptorService_Factory(t) { return new (t || AuthInterceptorService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"])); };
+AuthInterceptorService.ɵfac = function AuthInterceptorService_Factory(t) { return new (t || AuthInterceptorService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"])); };
 AuthInterceptorService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({ token: AuthInterceptorService, factory: AuthInterceptorService.ɵfac });
 
 
@@ -849,8 +1602,10 @@ __webpack_require__.r(__webpack_exports__);
 if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["enableProdMode"])();
 }
-_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["platformBrowser"]().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
-    .catch(err => console.error(err));
+document.addEventListener('DOMContentLoaded', () => {
+    _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["platformBrowser"]().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
+        .catch(err => console.error(err));
+});
 
 
 /***/ }),
