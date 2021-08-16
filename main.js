@@ -410,6 +410,7 @@ class AuthEffects {
         });
         this.authRedirect = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["createEffect"])(() => {
             return this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_auth_actions__WEBPACK_IMPORTED_MODULE_2__["AUTHENTICATE_SUCCESS"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["tap"])((authSuccessAction) => {
+                console.log("authSuccessAction.payload.redirect " + authSuccessAction.payload.redirect);
                 if (authSuccessAction.payload.redirect) {
                     this.router.navigate(['/']);
                 }
@@ -438,7 +439,7 @@ class AuthEffects {
                             userId: loadedUser.id,
                             token: loadedUser.token,
                             expirationDate: new Date(userData._tokenExpirationDate),
-                            redirect: false
+                            redirect: true
                         });
                         // this.user.next(loadedUser);
                         // const expirationDuration = new Date(
@@ -1531,6 +1532,8 @@ function authReducer(state = initialState, action) {
             return Object.assign(Object.assign({}, state), { user: null, authError: action.payload, loading: false });
         case _auth_actions__WEBPACK_IMPORTED_MODULE_1__["CLEAR_ERROR"]:
             return Object.assign(Object.assign({}, state), { authError: null });
+        case _auth_actions__WEBPACK_IMPORTED_MODULE_1__["AUTO_LOGIN"]:
+            return Object.assign(Object.assign({}, state), { authError: null, user: state.user });
         default:
             return state;
     }

@@ -31,6 +31,7 @@ class AuthGuard {
             return authState.user;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["map"])(user => {
             const isAuth = !!user;
+            console.log("isAuth " + isAuth);
             if (isAuth) {
                 return true;
             }
