@@ -110,6 +110,7 @@ export class AuthEffects {
 authRedirect: any = createEffect((): any => { return this.actions$.pipe(
     ofType(AuthActions.AUTHENTICATE_SUCCESS),
     tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
+        console.log("authSuccessAction.payload.redirect " + authSuccessAction.payload.redirect);
         if(authSuccessAction.payload.redirect){
         this.router.navigate(['/']);
         }
@@ -155,7 +156,8 @@ autoLogin: any = createEffect((): any=>{
                    userId:loadedUser.id, 
                    token: loadedUser.token,
                    expirationDate: new Date(userData._tokenExpirationDate),
-                   redirect: false}
+                   redirect: true
+                }
                    );
                
                 // this.user.next(loadedUser);

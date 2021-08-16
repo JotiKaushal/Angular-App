@@ -52,7 +52,12 @@ export function authReducer(state = initialState,
                             ...state,
                             authError:null,
                         }
-                       
+                        case AuthActions.AUTO_LOGIN:
+                        return {
+                            ...state,
+                            authError:null,
+                            user: state.user
+                        }
 
            default:
            return state;

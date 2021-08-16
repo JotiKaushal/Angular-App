@@ -28,6 +28,7 @@ constructor(private authService : AuthService,
      }),
      map(user =>{
      const isAuth = !!user;
+     console.log("isAuth " + isAuth);
      if(isAuth){
          return true;
      }else{

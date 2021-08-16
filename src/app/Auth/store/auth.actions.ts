@@ -47,4 +47,4 @@ export class ClearError implements Action{
 export class Autologin implements Action{
     readonly type = AUTO_LOGIN;
 }
-export type AuthActions = Autologin| AuthenticateSuccess | logout | LoginStart | AuthenticateFail | SignupStart | ClearError;
+export type AuthActions = AuthenticateSuccess | logout | LoginStart | AuthenticateFail | SignupStart | ClearError | Autologin;
